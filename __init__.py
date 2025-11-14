@@ -66,11 +66,15 @@ def fix_config_format():
                 continue
                 
             # 修复键名：移除空格和特殊字符，用下划线替换空格
-            fixed_key = key.replace(' ', '_').replace('\t', '_')
+            # fixed_key = key.replace(' ', '_').replace('\t', '_')
             
-            # 确保键名是有效的
-            if fixed_key and not fixed_key.startswith('='):
-                fixed_lines.append(f"{fixed_key} = {value}\n")
+            # # 确保键名是有效的
+            # if fixed_key and not fixed_key.startswith('='):
+            #     fixed_lines.append(f"{fixed_key} = {value}\n")
+            # else:
+            #     print(f"Removing invalid line: {line.strip()}")
+            if key and not key.startswith('='):
+                fixed_lines.append(f"{key} = {value}\n")
             else:
                 print(f"Removing invalid line: {line.strip()}")
         else:
@@ -95,8 +99,9 @@ def update_config():
     if hasattr(TTN_VERSIONS, 'items'):
         for node, version in TTN_VERSIONS.items():
             # 确保节点名称不包含空格
-            node_clean = node.replace(' ', '_')
-            config_write("Versions", node_clean, version)
+            # node_clean = node.replace(' ', '_')
+            # config_write("Versions", node_clean, version)
+            config_write("Versions", node, version)
     
     # 设置默认值（仅在缺失时）
     section_data = {
